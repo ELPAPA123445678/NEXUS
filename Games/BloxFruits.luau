@@ -247,6 +247,4 @@ end)
 
 closeButton.Activated:Connect(function()
 	screenGui:Destroy()
-end)on()
-	ScreenGui:Destroy()
 end)
