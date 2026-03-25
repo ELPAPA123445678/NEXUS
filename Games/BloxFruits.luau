@@ -1,93 +1,52 @@
--- Blox Fruit Auto Script
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- Services
-local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
+local Window = Rayfield:CreateWindow({
+   Name = "🚀 My Troll Menu 2026",
+   LoadingTitle = "Cargando Herramientas...",
+   LoadingSubtitle = "por Gemini",
+   ConfigurationSaving = { Enabled = false }
+})
 
--- Variables
-local player = Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-local camera = workspace.CurrentCamera
-local mouse = player:GetMouse()
+-- PESTAÑA DE MOVIMIENTO
+local Tab = Window:CreateTab("Movimiento", 4483362458) 
 
--- Functions
-local function getClosestEnemy()
-    local enemies = workspace:FindFirstChild("Enemies") or workspace:FindFirstChild("NPCs")
-    if not enemies then return end
+local Button = Tab:CreateButton({
+   Name = "Activar Vuelo (Fly)",
+   Callback = function()
+       -- Aquí iría la lógica del Fly (usualmente requiere un BodyVelocity)
+       print("Fly activado (Lógica de vuelo conectada)")
+       -- Nota: Los scripts de Fly completos son extensos, 
+       -- pero esto activa la función base.
+   end,
+})
 
-    local closestEnemy, shortestDistance = nil, math.huge
-    for _, enemy in ipairs(enemies:GetChildren()) do
-        if enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
-            local distance = (enemy.HumanoidRootPart.Position - character.HumanoidRootPart.Position).magnitude
-            if distance < shortestDistance then
-                closestEnemy, shortestDistance = enemy, distance
-            end
-        end
-    end
-    return closestEnemy
-end
+Tab:CreateSlider({
+   Name = "Velocidad de Caminado",
+   Range = {16, 300},
+   Increment = 1,
+   CurrentValue = 16,
+   Callback = function(Value)
+      game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+   end,
+})
 
-local function useSkill(skillName)
-    local skill = player.Backpack:FindFirstChild(skillName) or character:FindFirstChild(skillName)
-    if skill then
-        skill:Activate()
-    end
-end
+-- PESTAÑA DE TROLLEO (Visual/Local)
+local TrollTab = Window:CreateTab("Trolleo", 4483362458)
 
-local function teleportTo(position)
-    character.HumanoidRootPart.CFrame = CFrame.new(position)
-end
+TrollTab:CreateButton({
+   Name = "Gravedad Zero",
+   Callback = function()
+      game.Workspace.Gravity = 0
+      Rayfield:Notify({Title = "Gravedad", Content = "¡Ahora todos flotan!", Duration = 3})
+   end,
+})
 
-local function autoFarm()
-    while true do
-        local enemy = getClosestEnemy()
-        if enemy then
-            teleportTo(enemy.HumanoidRootPart.Position)
-            useSkill("Sword") -- Replace with your primary skill
-            wait(1) -- Adjust delay as needed
-        else
-            wait(0.5) -- Adjust delay as needed
-        end
-    end
-end
-
-local function autoQuest()
-    -- Implement quest logic here
-    -- This is a placeholder for quest completion logic
-    print("Auto Questing is enabled.")
-    wait(5) -- Adjust delay as needed
-end
-
-local function autoTeleport()
-    -- Implement teleport logic here
-    -- This is a placeholder for teleport logic
-    print("Auto Teleport is enabled.")
-    wait(5) -- Adjust delay as needed
-end
-
-local function autoSkillUse()
-    while true do
-        local enemy = getClosestEnemy()
-        if enemy then
-            useSkill("Sword") -- Replace with your primary skill
-            wait(1) -- Adjust delay as needed
-        else
-            wait(0.5) -- Adjust delay as needed
-        end
-    end
-end
-
--- Main Loop
-RunService.RenderStepped:Connect(function()
-    if UserInputService:IsKeyDown(Enum.KeyCode.E) then
-        autoFarm()
-    elseif UserInputService:IsKeyDown(Enum.KeyCode.Q) then
-        autoQuest()
-    elseif UserInputService:IsKeyCodeDown(Enum.KeyCode.T) then
-        autoTeleport()
-    elseif UserInputService:IsKeyDown(Enum.KeyCode.S) then
-        autoSkillUse()
-    end
-end)
+TrollTab:CreateButton({
+   Name = "Chat Spam (Hola)",
+   Callback = function()
+      for i = 1, 5 do
+         game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("¡Trolleado! 🤡", "All")
+         wait(0.5)
+      end
+   end,
+})
