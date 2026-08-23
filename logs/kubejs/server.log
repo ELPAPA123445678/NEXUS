@@ -1,0 +1,9 @@
+[21:02:59] [INIT] KubeJS 2001.6.5-build.26; MC 2001 fabric
+[21:02:59] [INIT] Loaded plugins:
+[21:02:59] [INIT] - dev.latvian.mods.kubejs.fabric.BuiltinKubeJSFabricPlugin
+[21:02:59] [INIT] - net.mehvahdjukaar.sawmill.integration.KubeJsPlugin
+[21:02:59] [INIT] - mod.chloeprime.aaaparticles.common.compat.kubejs.AAAParticleKubeJSPlugin
+[21:02:59] [INFO] example.js#5: Hello, World! (Loaded server scripts)
+[21:02:59] [INFO] Loaded script server_scripts:example.js in 0.0 s
+[21:02:59] [INFO] Loaded 1/1 KubeJS server scripts in 0.019 s with 0 errors and 0 warnings
+[21:02:59] [INFO] Scripts loaded
